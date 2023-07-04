@@ -290,20 +290,18 @@ export default function CrudLicitaciones() {
 
     /*Funcion Para Limpiar celdas Licitaciones*/
     const LimpiarCasillasL = async (e:any) => {
-        setLicitacionesM({
-            Id_LicitacionM: 0,
-            Nro_LicitacionM: "",
-            FechIni_LicitacionM: dayjs(''),
-            FechFin_LicitacionM: dayjs(''),
-            LugarEntrega_LicitacionM: "",
-            SujetoVarPrecio_LicitacionM: 0,
-            Monto_LicitacionM: 0,
-            Observacion_LicitacionM: "",
-            Estado_LicitacionM: 0,
-            RSSocioNegocioM: "",
-            Fk_Id_SocioNegocioM: "",
-            Fk_Id_Tipo_LicitacionM: ""
-        })
+        setLicitacionesC({
+            Nro_Licitacion: "",
+            FechIni_Licitacion: "",
+            FechFin_Licitacion: "",
+            LugarEntrega_Licitacion: "",
+            SujetoVarPrecio_Licitacion: 0,
+            Monto_Licitacion: 0,
+            Observacion_Licitacion: "",
+            RSSocioNegocio: "",
+            Fk_Id_SocioNegocio: "",
+            Fk_Id_Tipo_Licitacion: ""
+        });
     }
 
     /*Funcion Para Leer Licitaciones*/
