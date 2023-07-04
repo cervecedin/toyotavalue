@@ -80,7 +80,7 @@ export default function SideNavBar({children} : Props) {
 
     /*Funcion para mostrar modulos en base a privilegio del localstorage*/
     const LeerSubmodulo = async () => {
-      await Axios.post('http://192.168.25.141:3000/api/rprivilegios', {
+      await Axios.post('http://192.168.25.141:4000/api/rprivilegios', {
         Fk_Id_Privilegio: parseInt(localStorage.getItem("Privilegio")!)
       }, {
         headers: {
@@ -99,7 +99,7 @@ export default function SideNavBar({children} : Props) {
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
-      <AppBar position="fixed" open={open}>
+      <AppBar position="fixed" open={open} style={{backgroundColor:'#af191b'}}>
         <Toolbar>
           <IconButton
             color="inherit"
@@ -111,7 +111,7 @@ export default function SideNavBar({children} : Props) {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap component="div">
-            Repuestos Lima S.R.L.
+            CORASUR - Toyota VALUE
           </Typography>
         </Toolbar>
       </AppBar>

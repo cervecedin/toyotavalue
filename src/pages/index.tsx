@@ -1,5 +1,6 @@
 import Head from 'next/head'
 import SignIn from './login/Login'
+import SideNavBar from './Modulos/SideNavBar'
 
 export default function Home() {
   return (
