@@ -80,7 +80,7 @@ export default function SideNavBar({children} : Props) {
 
     /*Funcion para mostrar modulos en base a privilegio del localstorage*/
     const LeerSubmodulo = async () => {
-      await Axios.post('http://192.168.25.167:4000/api/rprivilegios', {
+      await Axios.post('http://192.168.25.141:4000/api/rprivilegios', {
         Fk_Id_Privilegio: parseInt(localStorage.getItem("Privilegio")!)
       }, {
         headers: {
