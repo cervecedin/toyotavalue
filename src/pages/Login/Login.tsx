@@ -52,7 +52,7 @@ export default function SignIn(){
       setOpenSnackBar(true);
     }
     else {
-      Axios.post('http://192.168.25.141:3000/api/singin', {
+      Axios.post('http://192.168.25.167:4000/api/singin', {
         Correo_acceso: Correo_acceso,
         Contrasena_acceso: Contrasena_acceso
       }).then((response) => {
@@ -68,8 +68,7 @@ export default function SignIn(){
           setSnackbar({ Color: 'error', Mensaje: 'Contraseña Incorrecta' });
           setOpenSnackBar(true);
         }
-        else {
-            /*Axios.post('https://192.168.1.244:50000/b1s/v2/Login', {
+        else {Axios.post('https://192.168.1.244:50000/b1s/v2/Login', {
                 CompanyDB: "SBO_CORASUR",
                 UserName: "manager",
                 Password: "prod123"
@@ -77,7 +76,8 @@ export default function SignIn(){
                 localStorage.setItem("IdServiceLayer", response2.data.SessionId);
                 console.log(response2.data);
                 router.push("/SubModulo");
-              });    */     
+              });  
+              
               localStorage.setItem("Acceso", response.data.Id_acceso);
               localStorage.setItem("Colaborador", response.data.Id_fk_colaborador);
               localStorage.setItem("Privilegio", response.data.Id_fk_privilegio);
