@@ -50,7 +50,7 @@ export default function CrudLicitaciones() {
 
     /*Funcion para Leer TipoLicitaciones*/
     const LeerPrivilegios = async () => {
-        await Axios.post('http://192.168.25.141:3000/api/rprivilegio', {
+        await Axios.post('http://192.168.25.167:4000/api/rprivilegio', {
           }, {
             headers: {
                 'Token': localStorage.getItem("Token"),
@@ -68,7 +68,7 @@ export default function CrudLicitaciones() {
             setSnackbar({ Color: 'error', Mensaje: 'Complete Los Datos Obligatorios*' });
             setOpenSnackBar(true);
         } else { 
-            await Axios.post('http://192.168.25.141:3000/api/signup', {
+            await Axios.post('http://192.168.25.167:4000/api/signup', {
                 Nombre_Acceso: AccesosC.Nombre_Acceso,
                 Correo_acceso: AccesosC.Correo_acceso,
                 Contrasena_acceso: AccesosC.Contrasena_Acceso,
@@ -111,7 +111,7 @@ export default function CrudLicitaciones() {
 
     /*Funcion Para Leer Licitaciones*/
     const LeerAccesos = async () => {
-        await Axios.post('http://192.168.25.141:3000/api/racceso', {
+        await Axios.post('http://192.168.25.167:4000/api/racceso', {
         }, {
             headers: {
                 'Token': localStorage.getItem("Token"),
@@ -170,7 +170,7 @@ export default function CrudLicitaciones() {
         if (data.Contrasena_acceso!=='[password]')
             var flag=1;           
 
-        Axios.post('http://192.168.25.141:3000/api/uacceso', {
+        Axios.post('http://192.168.25.167:4000/api/uacceso', {
             Id_acceso: data.Id_acceso,
             Nombre_Acceso: data.Nombre_Acceso,
             Correo_acceso: data.Correo_acceso,
@@ -204,7 +204,7 @@ export default function CrudLicitaciones() {
 
      /*Funcion Para Deshabilitar Accesos*/
      const DeshabilitarAcceso = (data:any) => {
-        Axios.post('http://192.168.25.141:3000/api/dacceso', {
+        Axios.post('http://192.168.25.167:4000/api/dacceso', {
             Id_acceso: data.Id_acceso,
         }, {
             headers: {

@@ -198,7 +198,7 @@ export default function CrudLicitaciones() {
 
     /*Funcion para Leer TipoLicitaciones*/
     const LeerTipoLicitaciones = async () => {
-        await Axios.post('http://192.168.25.141:3000/api/rlicitaciontipo', {
+        await Axios.post('http://192.168.25.167:4000/api/rlicitaciontipo', {
           }, {
             headers: {
                 'Token': localStorage.getItem("Token"),
@@ -210,7 +210,7 @@ export default function CrudLicitaciones() {
     }
     /*Funcion para Leer Socios de Negocio*/
     const LeerSociosNegocio = async () => {
-        Axios.post('http://192.168.25.141:3000/api/rsocionegocio', {
+        Axios.post('http://192.168.25.167:4000/api/rsocionegocio', {
         }, {
             headers: {
                 'Token': localStorage.getItem("Token"),
@@ -254,7 +254,7 @@ export default function CrudLicitaciones() {
             setSnackbar({ Color: 'error', Mensaje: 'Complete Los Datos Obligatorios*' });
             setOpenSnackBar(true);
         } else { 
-            await Axios.post('http://192.168.25.141:3000/api/clicitacion', {
+            await Axios.post('http://192.168.25.167:4000/api/clicitacion', {
                 Nro_Licitacion: LicitacionesC.Nro_Licitacion,
                 FechIni_Licitacion: dayjs(LicitacionesC.FechIni_Licitacion).format('YYYY-MM-DD'),
                 FechFin_Licitacion: dayjs(LicitacionesC.FechFin_Licitacion).format('YYYY-MM-DD'),
@@ -306,7 +306,7 @@ export default function CrudLicitaciones() {
 
     /*Funcion Para Leer Licitaciones*/
     const LeerLicitaciones = async () => {
-        Axios.post('http://192.168.25.141:3000/api/rlicitacion', {
+        Axios.post('http://192.168.25.167:4000/api/rlicitacion', {
         }, {
             headers: {
                 'Token': localStorage.getItem("Token"),
@@ -398,7 +398,7 @@ export default function CrudLicitaciones() {
             setSnackbar({ Color: 'error', Mensaje: 'Complete Los Datos Obligatorios*' });
             setOpenSnackBar(true);
         } else { 
-            await Axios.post('http://192.168.25.141:3000/api/ulicitacion', {
+            await Axios.post('http://192.168.25.167:4000/api/ulicitacion', {
                 Id_Licitacion: LicitacionesM.Id_LicitacionM,
                 Nro_Licitacion: LicitacionesM.Nro_LicitacionM,
                 FechIni_Licitacion: dayjs(LicitacionesM.FechIni_LicitacionM).format('YYYY-MM-DD'),
@@ -443,7 +443,7 @@ export default function CrudLicitaciones() {
 
     /*Funcion Para Eliminar Licitaciones*/
     const EliminarLicitacion = () => {
-        Axios.post('http://192.168.25.141:3000/api/dlicitacion', {
+        Axios.post('http://192.168.25.167:4000/api/dlicitacion', {
             Id_Licitacion: LicitacionesE.Id_LicitacionE,
         }, {
             headers: {
@@ -470,7 +470,7 @@ export default function CrudLicitaciones() {
 
     /*Listar Articulos Modal */
     const ListarArticulos = async () => {
-        await Axios.post('http://192.168.25.141:3000/api/rarticuloComb', {
+        await Axios.post('http://192.168.25.167:4000/api/rarticuloComb', {
         }, {
             headers: {
                 'Token': localStorage.getItem("Token"),
@@ -519,7 +519,7 @@ export default function CrudLicitaciones() {
     }
      /*Funcion Para Eliminar LICITACION DETALLE*/
      const EliminarLicDetalle = (data:any) => {
-        Axios.post('http://192.168.25.141:3000/api/dlicitaciondet', {
+        Axios.post('http://192.168.25.167:4000/api/dlicitaciondet', {
             Id_Lic_Det: data.Id_Lic_Det,
         }, {
             headers: {
@@ -554,7 +554,7 @@ export default function CrudLicitaciones() {
     }
     /*Funcion para Listar Detalle Licitacion*/
     const ListarLicDetalle = async (data:any) => {
-        await Axios.post('http://192.168.25.141:3000/api/rlicitaciondet', {
+        await Axios.post('http://192.168.25.167:4000/api/rlicitaciondet', {
             Fk_Id_Licitacion: data!
         }, {
             headers: {
@@ -623,7 +623,7 @@ export default function CrudLicitaciones() {
             setSnackbar({ Color: 'error', Mensaje: 'Complete Los Datos Obligatorios*' });
             setOpenSnackBar(true);
         } else { 
-            await Axios.post('http://192.168.25.141:3000/api/clicitaciondetvar', {
+            await Axios.post('http://192.168.25.167:4000/api/clicitaciondetvar', {
                 Id_Lic_Det: LicDetalleVarC.Id_Lic_Det,   
                 Precio_Lic_Det: LicDetalleVarC.Precio_Lic_Det,    
                 Tipo_Lic_Det: LicDetalleVarC.Tipo_Lic_Det,                
