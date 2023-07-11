@@ -666,7 +666,7 @@ export default function CrudLicitaciones() {
                             <Box fontWeight="fontWeightBold">Licitaciones </Box>
                 </Typography>
             </Box>
-            <Box sx={{'& .MuiTextField-root': { m: 2, width: '25ch' },}}>
+            <Box sx={{'& .MuiTextField-root': { m: 2, width: '25ch' }}}>
                 <div>
                     <TextField id="outlined-start-adornment" value={LicitacionesC.RSSocioNegocio}  label="Cliente Licitación*"  size="small" InputProps={{endAdornment: <InputAdornment position="end"><IconButton onClick={()=>{AbrirCerrarModalSN();LeerSociosNegocio();}}><SearchIcon/></IconButton></InputAdornment>}} disabled/>  
                     <TextField id="outlined-helperText" label="Número Licitacion*"  size="small" name="Nro_Licitacion" onChange={onChangeLicitacion} autoComplete='off'/>     
