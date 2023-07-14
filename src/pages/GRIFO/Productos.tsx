@@ -11,7 +11,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import dayjs from "dayjs";
-import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
+
 
 const Alert = forwardRef<HTMLDivElement, AlertProps>(function Alert(
     props,
@@ -29,17 +29,19 @@ const Alert = forwardRef<HTMLDivElement, AlertProps>(function Alert(
       value: 1,
       label: 'Si',
     }
-  ];
-  const AcceCreacion = [
-    {
-      value: 0,
-      label: 'No',
-    },
-    {
-      value: 1,
-      label: 'Si',
-    }
-  ];
+  ]
+
+  const style = {
+    position: 'absolute' as 'absolute',
+    top: '30%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 1000,
+    bgcolor: 'background.paper',
+    border: '2px solid #000',
+    boxShadow: 24,
+    p: 4,
+  };
 
 export default function CrudArticulos() {
     /*SnackBar Alertas Material ui*/
@@ -58,8 +60,11 @@ export default function CrudArticulos() {
       setOpenSnackBar(false);
     };
     
-    /*Estado para los registros de la tabla TipoLicitaciones*/
-    const [Combustible, setCombustible] = useState<any[]>([]);
+    /*Estado y Funcion para modal de Codigo SAP Articulo*/
+    const [ModalArticuloSAP, setModalArticuloSAP] = useState(false);
+    const AbrirCerrarModalArticuloSAP = () => {
+      setModalArticuloSAP(!ModalArticuloSAP);
+    };
     /*Estado para los registros de la tabla Articulos*/
     const [Articulos, setArticulos] = useState([]);
     /*Estado para los campos de crear Articulos*/
@@ -83,15 +88,29 @@ export default function CrudArticulos() {
         Xpump_Articulo: ""
     });
 
-    /*Estado y Funcion para modal de Codigo SAP Articulo*/
-    const [ModalCodigoSA, setModalCodigoSA] = useState(false);
-    const AbrirCerrarModalSN = () => {
-        setModalCodigoSA(!ModalCodigoSA);
-    }
     /*Funcion Para Cambiar el estado de la variable de estado Producto directo desde los textfields */
     const onChangeArticulosC = (e:React.ChangeEvent<any>) =>{
         setArticulosC({...ArticulosC,[e.target.name]: e.target.value})
-    }
+    };
+
+    /*definicion columnas grid Articulos Migrados */
+    const columnsSAPArticulo: GridColDef[] = [    
+      { field: 'U_INT_Migrados', headerName: 'Migrados', width: 150, editable: false}
+    ];     
+    
+    // /*Funcion para Leer Articulos Migrados*/
+    // const LeerItemsMigradosSAP = async () => {
+    //   Axios.post("http://192.168.1.244:8000/RELIMA_DESARROLLO/testArticulo.xsjs", 
+    //   {withCredentials: true}).then((response) => {              
+    //   /*setMotivoPausa(response.data.value)  */         
+    //     console.log(response);
+    //   });
+    // }
+    const LeerItemsMigradosSAP = async () => {     
+    await   Axios.get("http://192.168.1.244:8000/RELIMA_DESARROLLO/testArticulo.xsjs", 
+          {withCredentials: true}).then((response2) => { 
+            console.log(response2.data); 
+    })};  
 
     /*Funcion Para Crear Articulos */
     const CrearArticulos = async (e:any) => {
@@ -144,7 +163,7 @@ export default function CrudArticulos() {
     }
 
     /*definicion columnas grid  */
-    const columnsAccesos: GridColDef[] = [    
+    const columnsArticulos: GridColDef[] = [    
         { field: 'Id_Articulo', headerName: 'ID', width: 50, editable: false,},
         { field: 'CodigoSap_Articulo', headerName: 'CodSap Articulo', width: 280, editable: true,},
         { field: 'Descrip_Articulo', headerName: 'Descripción Articulo', width: 280, editable: true,},
@@ -213,7 +232,7 @@ export default function CrudArticulos() {
             </Box>
             <Box component="form" sx={{'& .MuiTextField-root': { m: 2, width: '25ch' },}} noValidate autoComplete="on" style={{textAlign:'center'}}>
                 <div>                    
-                    <TextField id="outlined-start-adornment" value={ArticulosC} label="Código SAP Artículo*"  size="small" InputProps={{endAdornment: <InputAdornment position="end"><SearchIcon/><IconButton onClick={()=>{AbrirCerrarModalSN}}></IconButton></InputAdornment>}} disabled/>     
+                <TextField id="outlined-start-adornment" label="Cliente Licitación*"  size="small" InputProps={{endAdornment: <InputAdornment position="end"><IconButton onClick={()=>{AbrirCerrarModalArticuloSAP();LeerItemsMigradosSAP();}}><SearchIcon/></IconButton></InputAdornment>}} disabled/>    
                     <TextField id="outlined-helperText" label="Descripción Artículo*"  size="small" name="Descrip_Articulo" onChange={onChangeArticulosC} value={ArticulosC.Descrip_Articulo}/>  
                     <TextField id="outlined-select-currency" select label="¿Es Combustible?*" defaultValue="1" size="small" name="EsCombustible_Articulo" onChange={onChangeArticulosC}
                     style={{textAlign:'left'}}>
@@ -243,9 +262,20 @@ export default function CrudArticulos() {
                 </div>
             </Box>   
             <Box sx={{ m: 2 }}>
-                <DataGrid rows={Articulos} columns={columnsAccesos} initialState={{pagination: {paginationModel: {pageSize: 5,},},}} pageSizeOptions={[5]} disableRowSelectionOnClick getRowId={(row) => row.Id_acceso}  sx={{boxShadow: 2,border: 1,"& .MuiDataGrid-cell:hover": {color: "primary.main"}}}/>
+                <DataGrid rows={Articulos} columns={columnsArticulos} initialState={{pagination: {paginationModel: {pageSize: 5,},},}} pageSizeOptions={[5]} disableRowSelectionOnClick getRowId={(row) => row.Id_acceso}  sx={{boxShadow: 2,border: 1,"& .MuiDataGrid-cell:hover": {color: "primary.main"}}}/>
             </Box>
-
+            <Modal open={ModalArticuloSAP} onClose={AbrirCerrarModalArticuloSAP} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
+                <Box sx={style}>
+                    <Box sx={{ m: 2 }} fontStyle={"italic"}>
+                        <Typography id="modal-modal-title" variant="h6" component="h2">
+                            Articulos Migrados
+                        </Typography>
+                    </Box>
+                    <Box sx={{ m: 2 }}>
+                        <DataGrid rows={Articulos} columns={columnsSAPArticulo} initialState={{pagination: {paginationModel: {pageSize: 5,},},}} pageSizeOptions={[5]} disableRowSelectionOnClick getRowId={(row) => row.U_INT_Migrados}/>
+                    </Box>
+                </Box>
+            </Modal> 
             {/*Componente Para Alertas*/}
             <Snackbar anchorOrigin={{ vertical, horizontal }} open={OpenSnackBar} autoHideDuration={2000} onClose={handleClose}>
             <Alert
