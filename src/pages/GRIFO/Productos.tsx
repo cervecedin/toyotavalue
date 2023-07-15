@@ -62,9 +62,12 @@ export default function CrudArticulos() {
     
     /*Estado y Funcion para modal de Codigo SAP Articulo*/
     const [ModalArticuloSAP, setModalArticuloSAP] = useState(false);
+    /*Estado para abrir el modal de Codigo SAP Articulo*/
     const AbrirCerrarModalArticuloSAP = () => {
       setModalArticuloSAP(!ModalArticuloSAP);
     };
+    /*Estado para los registros de la tabla Socios de Negocio*/
+    const [ArticulosSAP, setArticulosSAP] = useState<any[]>([]);
     /*Estado para los registros de la tabla Articulos*/
     const [Articulos, setArticulos] = useState([]);
     /*Estado para los campos de crear Articulos*/
@@ -95,10 +98,9 @@ export default function CrudArticulos() {
 
     /*definicion columnas grid Articulos Migrados */
     const columnsSAPArticulo: GridColDef[] = [    
-      { field: 'U_INT_Migrados', headerName: 'Migrados', width: 150, editable: false}
+      { field: 'U_INT_Migrado', headerName: 'Migrados', width: 150, editable: false}
     ];     
     
-    // /*Funcion para Leer Articulos Migrados*/
     // const LeerItemsMigradosSAP = async () => {
     //   Axios.post("http://192.168.1.244:8000/RELIMA_DESARROLLO/testArticulo.xsjs", 
     //   {withCredentials: true}).then((response) => {              
@@ -106,12 +108,15 @@ export default function CrudArticulos() {
     //     console.log(response);
     //   });
     // }
-    const LeerItemsMigradosSAP = async () => {     
-    await   Axios.get("http://192.168.1.244:8000/RELIMA_DESARROLLO/testArticulo.xsjs", 
-          {withCredentials: true}).then((response2) => { 
-            console.log(response2.data); 
-    })};  
 
+    // /*Funcion para Leer Articulos Migrados*/
+    const LeerItemsMigradosSAP = async () => {     
+          await Axios.get("http://192.168.1.244:8000/RELIMA_DESARROLLO/testArticulo.xsjs", 
+            {withCredentials: true}).then((response2) => { 
+             //setArticulos(response2.data);
+             console.log(response2.data); 
+    })};  
+  
     /*Funcion Para Crear Articulos */
     const CrearArticulos = async (e:any) => {
         e.preventDefault();      
@@ -165,8 +170,8 @@ export default function CrudArticulos() {
     /*definicion columnas grid  */
     const columnsArticulos: GridColDef[] = [    
         { field: 'Id_Articulo', headerName: 'ID', width: 50, editable: false,},
-        { field: 'CodigoSap_Articulo', headerName: 'CodSap Articulo', width: 280, editable: true,},
-        { field: 'Descrip_Articulo', headerName: 'Descripción Articulo', width: 280, editable: true,},
+        { field: 'CodigoSap_Articulo', headerName: 'CodSap Articulo', width: 280, editable: false,},
+        { field: 'Descrip_Articulo', headerName: 'Descripción Articulo', width: 280, editable: false,},
         {
             field: 'EsCombustible', headerName:'¿Es Combustible?', width: 180,
             valueGetter: ({ row }) => {
@@ -232,7 +237,7 @@ export default function CrudArticulos() {
             </Box>
             <Box component="form" sx={{'& .MuiTextField-root': { m: 2, width: '25ch' },}} noValidate autoComplete="on" style={{textAlign:'center'}}>
                 <div>                    
-                <TextField id="outlined-start-adornment" label="Cliente Licitación*"  size="small" InputProps={{endAdornment: <InputAdornment position="end"><IconButton onClick={()=>{AbrirCerrarModalArticuloSAP();LeerItemsMigradosSAP();}}><SearchIcon/></IconButton></InputAdornment>}} disabled/>    
+                <TextField id="outlined-start-adornment" value={ArticulosSAP} label="Código SAP Artículo*"  size="small" InputProps={{endAdornment: <InputAdornment position="end"><IconButton onClick={()=>{AbrirCerrarModalArticuloSAP();LeerItemsMigradosSAP();}}><SearchIcon/></IconButton></InputAdornment>}} disabled/>    
                     <TextField id="outlined-helperText" label="Descripción Artículo*"  size="small" name="Descrip_Articulo" onChange={onChangeArticulosC} value={ArticulosC.Descrip_Articulo}/>  
                     <TextField id="outlined-select-currency" select label="¿Es Combustible?*" defaultValue="1" size="small" name="EsCombustible_Articulo" onChange={onChangeArticulosC}
                     style={{textAlign:'left'}}>
@@ -262,7 +267,7 @@ export default function CrudArticulos() {
                 </div>
             </Box>   
             <Box sx={{ m: 2 }}>
-                <DataGrid rows={Articulos} columns={columnsArticulos} initialState={{pagination: {paginationModel: {pageSize: 5,},},}} pageSizeOptions={[5]} disableRowSelectionOnClick getRowId={(row) => row.Id_acceso}  sx={{boxShadow: 2,border: 1,"& .MuiDataGrid-cell:hover": {color: "primary.main"}}}/>
+                <DataGrid rows={Articulos} columns={columnsArticulos} initialState={{pagination: {paginationModel: {pageSize: 5,},},}} pageSizeOptions={[5]} disableRowSelectionOnClick getRowId={(row) => row.Id_Articulo}  sx={{boxShadow: 2,border: 1, height:150,"& .MuiDataGrid-cell:hover": {color: "primary.main"}}}/>
             </Box>
             <Modal open={ModalArticuloSAP} onClose={AbrirCerrarModalArticuloSAP} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
                 <Box sx={style}>
@@ -272,7 +277,7 @@ export default function CrudArticulos() {
                         </Typography>
                     </Box>
                     <Box sx={{ m: 2 }}>
-                        <DataGrid rows={Articulos} columns={columnsSAPArticulo} initialState={{pagination: {paginationModel: {pageSize: 5,},},}} pageSizeOptions={[5]} disableRowSelectionOnClick getRowId={(row) => row.U_INT_Migrados}/>
+                        <DataGrid rows={ArticulosSAP} columns={columnsSAPArticulo} initialState={{pagination: {paginationModel: {pageSize: 5,},},}} pageSizeOptions={[5]} disableRowSelectionOnClick getRowId={(row) => row.U_INT_Migrado} sx={{height:150}}/>
                     </Box>
                 </Box>
             </Modal> 
